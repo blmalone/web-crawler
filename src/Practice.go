@@ -1,6 +1,8 @@
 package main
 
-//import "fmt"
+import (
+	//"fmt"
+)
 
 //Defining multiple variables
 var (
@@ -10,18 +12,7 @@ var (
 )
 
 var str string = "Hello Blaine!"
-
-func average(xs []float64) float64 {
-	total := 0.0
-	for _, v := range xs {
-		total += v
-	}
-	return total / float64(len(xs))
-}
-
-func multipleReturnTypes() (int, int) {
-	return 5, 6
-}
+const Pi = 3.14
 
 //func main() {
 //	addition := 5
@@ -88,7 +79,37 @@ func multipleReturnTypes() (int, int) {
 //	fmt.Println(nextEven()) // 2
 //	fmt.Println(nextEven()) // 4
 //
+//	fmt.Println(add(5,5));
+//
+//	v := 42 // change me!
+//	fmt.Printf("v is of type %T\n", v)
+//
+//
+//	//Equivalent of a while loop in Go
+//	sum := 1
+//	for sum < 1000 {
+//		sum += sum
+//	}
+//	fmt.Println(sum)
+//
+//
+//	if v := 6; v < 10 {
+//		fmt.Println(v)
+//	}
+//
 //}
+
+func average(xs []float64) float64 {
+	total := 0.0
+	for _, v := range xs {
+		total += v
+	}
+	return total / float64(len(xs))
+}
+
+func multipleReturnTypes() (int, int) {
+	return 5, 6
+}
 
 func makeEvenGenerator() func() uint {
 	i := uint(0)
@@ -97,4 +118,17 @@ func makeEvenGenerator() func() uint {
 		i += 2
 		return
 	}
+}
+
+func add(x, y int) int {
+	return x + y;
+}
+
+/*
+	A naked return function example - shouldn't be used for longer functions as it hinders readability
+ */
+func split(sum int) (x, y int) {
+	x = sum * 4 / 9
+	y = sum - x
+	return
 }
