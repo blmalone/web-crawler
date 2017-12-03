@@ -14,7 +14,7 @@ import (
 
 var baseUrl string
 var visited sync.Map
-var mutex sync.RWMutex //Using a mutex to prevent interleaving of fmt.Println() betweek different gorountines.
+var mutex sync.RWMutex//Using a mutex to prevent interleaving of fmt.Println() betweek different gorountines.
 
 func main() {
 	/*
