@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"fmt"
 	"log"
-	//"io/ioutil"
 	"reflect"
 )
 
@@ -14,6 +13,9 @@ var htmlWithOneLink = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8
 		<a href="https://www.google.com">Google</a></head><body></body></html>`
 
 var htmlWithNoLinks = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"></head><body></body></html>`
+
+var htmlWithTwoLinks = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+		<a href="https://www.google.com">Google</a><a href="/about">About</a></head><body></body></html>`
 
 func TestGetLinksOnPage(t *testing.T) {
 	expectedLinksOnPage := []string {}
@@ -37,6 +39,23 @@ func TestGetLinksOnPage(t *testing.T) {
 	expectedLinksOnPage = append(expectedLinksOnPage,`https://www.google.com`);
 	ts = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, htmlWithOneLink)
+	}))
+
+	res, err = http.Get(ts.URL)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	actualLinksOnPage = getLinksOnPage(res.Body)
+
+	if !reflect.DeepEqual(expectedLinksOnPage, actualLinksOnPage) {
+		t.Errorf("getLinksOnPage(x) returns doesn't return expected link")
+	}
+
+	expectedLinksOnPage = append(expectedLinksOnPage,`/about`);
+	ts = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, htmlWithTwoLinks)
 	}))
 
 	res, err = http.Get(ts.URL)
@@ -88,5 +107,25 @@ func TestFormatUrl(t *testing.T) {
 
 	if result != expectedResult {
 		t.Errorf("The url was formatted incorrectly")
+	}
+}
+
+func TestIsExternalLink(t *testing.T) {
+	externalLink := "https://www.apple.com/"
+
+	internalLink := "monzo.com/blog/"
+
+	result := isExternalLink(externalLink)
+
+	if !result {
+		t.Errorf("isExternalLink(%q) returned false when %q is an external link",
+			externalLink, externalLink)
+	}
+
+	result = isExternalLink(internalLink)
+
+	if result {
+		t.Errorf("isExternalLink(%q) returned true when %q isn't an external link",
+			internalLink, internalLink)
 	}
 }
