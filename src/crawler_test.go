@@ -141,3 +141,11 @@ func TestIsExternalLink(t *testing.T) {
 			internalLink, internalLink)
 	}
 }
+
+func TestNoDeadLockInCrawl(t *testing.T) {
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, htmlWithTwoLinks)
+	}))
+	defer ts.Close()
+	crawl(ts.URL)
+}
