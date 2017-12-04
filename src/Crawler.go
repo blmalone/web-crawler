@@ -14,7 +14,7 @@ import (
 
 var baseUrl string
 var visited sync.Map
-var mutex sync.RWMutex//Using a mutex to prevent interleaving of fmt.Println() betweek different gorountines.
+var mutex sync.RWMutex //Using a mutex to prevent interleaving of fmt.Println() betweek different gorountines.
 
 func main() {
 	/*
@@ -26,6 +26,10 @@ func main() {
 		baseUrl = os.Args[1]
 	}
 
+	crawl(baseUrl)
+}
+
+func crawl(baseUrl string) {
 	queue := make(chan string)
 	finished := make(chan bool)
 
@@ -36,6 +40,8 @@ func main() {
 	<-finished
 	fmt.Println("\nComplete!")
 }
+
+
 
 /*
 	Continuously loops through urls that have been added to channel 'queue'.
