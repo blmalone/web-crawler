@@ -108,6 +108,18 @@ func TestFormatUrl(t *testing.T) {
 	if result != expectedResult {
 		t.Errorf("The url was formatted incorrectly")
 	}
+
+	result = formatUrl("", ":")
+
+	if result != "Parse error" {
+		t.Errorf("Invalid url shouldn't have been parsed")
+	}
+
+	result = formatUrl(":", "")
+
+	if result != "Parse error" {
+		t.Errorf("Invalid url shouldn't have been parsed")
+	}
 }
 
 func TestIsExternalLink(t *testing.T) {

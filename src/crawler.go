@@ -133,11 +133,11 @@ func isExternalLink(url string) bool {
 func formatUrl(href, base string) string {
 	uri, err := url.Parse(href)
 	if err != nil {
-		return ""
+		return "Parse error"
 	}
 	baseUrl, err := url.Parse(base)
 	if err != nil {
-		return ""
+		return "Parse error"
 	}
 	uri = baseUrl.ResolveReference(uri)
 	return uri.String()
