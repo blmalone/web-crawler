@@ -17,6 +17,11 @@ var htmlWithNoLinks = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8
 var htmlWithTwoLinks = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
 		<a href="https://www.google.com">Google</a><a href="/about">About</a></head><body></body></html>`
 
+var htmlWithDuplicateLinks = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+		<a href="https://www.google.com">Google</a><a href="/about">About</a>
+		<a href="/about">About</a><a href="/about">About</a>
+		</head><body></body></html>`
+
 func TestGetLinksOnPage(t *testing.T) {
 	expectedLinksOnPage := []string {}
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -144,7 +149,7 @@ func TestIsExternalLink(t *testing.T) {
 
 func TestNoDeadLockInCrawl(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, htmlWithTwoLinks)
+		fmt.Fprintln(w, htmlWithDuplicateLinks)
 	}))
 	defer ts.Close()
 	crawl(ts.URL)
