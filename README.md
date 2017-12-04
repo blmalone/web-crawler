@@ -8,3 +8,6 @@ To run tests:
 
 To run tests with Coverage:
 - Go to `src/` and run `go test -coverprofile=cover.out`. Use `go tool cover -func=cover.out` to see more details.
+
+To run tests with HTML report:
+- Go to `src/` and run `go tool cover -html=cover.out`
