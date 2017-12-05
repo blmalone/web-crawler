@@ -16,7 +16,7 @@ var baseUrl string
 var visited sync.Map
 var mutex sync.RWMutex //Using a mutex to prevent interleaving of fmt.Println() between different gorountines.
 
-func main {
+func main() {
 	/*
 		Prepare url for http request
 	 */
