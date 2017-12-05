@@ -11,3 +11,6 @@ To run tests with Coverage:
 
 To run tests with HTML report:
 - Go to `src/` and run `go tool cover -html=cover.out`
+
+
+![Screen shot of visual testing](/img.png?raw=true "")
