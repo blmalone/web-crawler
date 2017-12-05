@@ -14,3 +14,6 @@ To run tests with HTML report:
 
 
 ![Screen shot of visual testing](/img.png?raw=true "")
+
+
+Bound by memory as `sync.Map` wouldn't be able to store the entire web on a local machine. If a network error occurs then solution should add link that was not queried correctly back onto the `queue`. 
