@@ -17,3 +17,6 @@ To run tests with HTML report:
 
 
 Bound by memory as `sync.Map` wouldn't be able to store the entire web on a local machine. If a network error occurs then solution should add link that was not queried correctly back onto the `queue`. 
+
+
+//TO DO - re-evaluate design decision, opt for recusive approach (Breadth first search).
